@@ -1,0 +1,13 @@
+# Prevent unintended disclosure of patient-level or serialized files
+train.csv
+test2.csv
+*.joblib
+*.pkl
+*.pickle
+data/
+private/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*

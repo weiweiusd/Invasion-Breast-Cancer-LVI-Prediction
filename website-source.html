@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Research calculator for breast cancer LVI class-1 probability using a fitted logistic regression model and individual feature contributions.">
+  <title>Invasion Breast Cancer LVI Prediction | Logistic Regression</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+  <script defer src="./assets/model-data.js"></script>
+  <script defer src="./assets/model-core.js"></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <!-- EDIT HERE: page title and subtitle. -->
+    <header class="masthead">
+      <div class="heading-row">
+        <div>
+          <h1>Invasion Breast Cancer <span>LVI</span> Prediction</h1>
+        </div>
+      </div>
+    </header>
+
+    <!-- EDIT HERE: input names, field help text, result headings and explanations. -->
+    <main class="workspace">
+      <aside class="panel input-panel" aria-labelledby="input-heading">
+        <div class="panel-header">
+          <h2 id="input-heading">Patient Input</h2>
+        </div>
+        <form id="prediction-form" novalidate>
+          <div class="form-fields">
+            <div class="field">
+              <label for="f-us-alns"><span>US-ALNs</span></label>
+              <select id="f-us-alns" name="US-ALNs" required><option value="0">0</option><option value="1">1</option></select>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-size"><span>Size</span></label>
+                <input id="f-size" name="Size" type="number" inputmode="decimal" min="0" max="200" step="any" required value="0">
+              </div>
+              <div class="field">
+                <label for="f-age"><span>Age</span></label>
+                <input id="f-age" name="Age" type="number" inputmode="decimal" min="0" max="120" step="any" required value="0">
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-peri"><span>Peri3mm Model</span></label>
+              <input id="f-peri" name="Peri3_svm_prob" type="number" inputmode="decimal" min="0" max="1" step="0.001" required value="0.000">
+            </div>
+            <div class="field">
+              <label for="f-hab"><span>HabitatAll Model</span></label>
+              <input id="f-hab" name="Hab_logistic_prob" type="number" inputmode="decimal" min="0" max="1" step="0.001" required value="0.000">
+            </div>
+            <div class="field">
+              <label for="f-dl"><span>DL Model</span></label>
+              <input id="f-dl" name="DL_prob_class1" type="number" inputmode="decimal" min="0" max="1" step="0.001" required value="0.000">
+            </div>
+          </div>
+          <div id="validation-error" class="validation-error" role="alert" hidden></div>
+          <button class="predict-button" type="submit"><span aria-hidden="true"></span> Calculate <span aria-hidden="true">→</span></button>
+          <div class="secondary-actions">
+            <button type="button" class="secondary-button" id="reset-button">Reset</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="results-column" aria-labelledby="results-heading">
+        <div class="panel results-panel">
+          <div class="result-header">
+            <div><h2 id="results-heading">Prediction Results</h2></div>
+            
+          </div>
+          <div class="metric-grid" aria-live="polite">
+            <div class="metric-card primary-metric"><div class="metric-top"><span>Estimated LVI Probability</span></div><div class="probability-value" id="probability-value">—</div><div class="meter"><div id="probability-meter"></div></div><div class="metric-bottom"><span>0%</span><span>100%</span></div></div>
+            <div class="metric-card classification-card"><div class="metric-top"><span>Predicted LVI Status</span></div><div id="classification-badge" class="classification-badge">—</div><p id="classification-detail" class="classification-detail">Based on the fitted model probability.</p></div>
+          </div>
+        </div>
+
+        <div class="panel explain-panel" aria-labelledby="explain-heading">
+          <div class="result-header explain-header"><div><h2 id="explain-heading">SHAP Force Plot </h2></div></div>
+          <div class="force-plot-frame">
+            <svg id="force-svg" class="force-svg" viewBox="0 0 1000 324" role="img" aria-label="Force plot of individual model contributions."></svg>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- EDIT HERE: research disclaimer in the footer. -->
+  </div>
+</body>
+</html>
